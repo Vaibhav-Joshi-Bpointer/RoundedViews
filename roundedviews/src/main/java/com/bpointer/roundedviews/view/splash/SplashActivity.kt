@@ -1,12 +1,11 @@
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.bpointer.roundedviews.view.cornerImageView.ExampleActivity
+import com.bpointer.roundedviews.view.cornerFrameLayout.MainActivity
 import com.bpointer.roundedviews.databinding.ActivitySplashBinding
 
 @SuppressLint("CustomSplashScreen")

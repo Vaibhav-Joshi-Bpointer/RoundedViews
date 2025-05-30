@@ -1,4 +1,4 @@
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerImageView
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bpointer.roundedviews.R
 
 class StreamAdapter(context: Context) : ArrayAdapter<ColorItem?>(context, 0) {
     private val mInflater: LayoutInflater = LayoutInflater.from(getContext())

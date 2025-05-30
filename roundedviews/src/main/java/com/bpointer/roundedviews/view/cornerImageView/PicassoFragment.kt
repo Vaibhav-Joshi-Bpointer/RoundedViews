@@ -13,23 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerImageView
 
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.ImageView.ScaleType
 import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.bpointer.roundedimageview.RoundedTransformationBuilder
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Transformation
+import com.bpointer.roundedviews.R
 
 class PicassoFragment : Fragment() {
     public override fun onCreateView(

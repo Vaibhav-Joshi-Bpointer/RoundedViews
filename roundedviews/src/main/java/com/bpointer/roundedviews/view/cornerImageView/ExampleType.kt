@@ -1,4 +1,4 @@
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerImageView
 
 enum class ExampleType {
     DEFAULT,

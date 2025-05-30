@@ -1,4 +1,4 @@
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerImageView
 
 import android.widget.ImageView.ScaleType
 

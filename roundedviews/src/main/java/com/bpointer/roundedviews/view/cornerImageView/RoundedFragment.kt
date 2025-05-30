@@ -13,11 +13,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerImageView
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Shader.TileMode
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,6 +27,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bpointer.roundedimageview.RoundedImageView
+import com.bpointer.roundedviews.R
 
 class RoundedFragment : Fragment() {
     private var exampleType: ExampleType? = null

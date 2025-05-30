@@ -1,7 +1,8 @@
-package com.bpointer.roundedviews
+package com.bpointer.roundedviews.view.cornerFrameLayout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bpointer.roundedviews.R
 
 class MainActivity : AppCompatActivity() {
 
