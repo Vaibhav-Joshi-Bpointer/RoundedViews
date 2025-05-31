@@ -4,3 +4,11 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.android.application) apply false
 }
+def secretPropsFile = rootProject.file('.maven.publish.properties')
+if (secretPropsFile.exists()) {
+    def secretProps = new Properties()
+    secretProps.load(new FileInputStream(secretPropsFile))
+    secretProps.each { key, value ->
+        project.ext.set(key.toString(), value)
+    }
+}

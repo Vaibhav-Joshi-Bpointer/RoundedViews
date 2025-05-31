@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id 'maven-publish'
+    id 'signing'
 }
 
 android {
@@ -17,7 +19,7 @@ android {
 
     buildTypes {
         release {
-//            isMinifyEnabled = true
+            // isMinifyEnabled = true
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
@@ -44,4 +46,64 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.vaibhav-joshi-bpointer'
+                artifactId = 'roundedimageview'
+                version = '1.0.0'
+
+                pom {
+                    name.set('RoundedImageView')
+                    description.set('A custom ImageView with rounded corners.')
+                    url.set('https://github.com/vaibhav-joshi-bpointer/roundedviews')
+
+                    licenses {
+                        license {
+                            name.set('The Apache License, Version 2.0')
+                            url.set('http://www.apache.org/licenses/LICENSE-2.0.txt')
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id.set('Vaibhav-Joshi-Bpointer')
+                            name.set('Vaibhav-Joshi-Bpointer')
+                            email.set('vaibhav_joshi@bpointer.in')
+                        }
+                    }
+
+                    scm {
+                        connection.set('scm:git:github.com/vaibhav-joshi-bpointer/roundedviews.git')
+                        developerConnection.set('scm:git:ssh://github.com/vaibhav-joshi-bpointer/roundedviews.git')
+                        url.set('https://github.com/vaibhav-joshi-bpointer/roundedviews')
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = project.findProperty("ossrhUsername") ?: ""
+                    password = project.findProperty("ossrhPassword") ?: ""
+                }
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(
+                project.findProperty("signing.key") ?: "",
+                project.findProperty("signing.password") ?: ""
+        )
+        sign publishing.publications.mavenJava
+    }
 }

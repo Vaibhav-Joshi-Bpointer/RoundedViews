@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id 'maven-publish'
+    id 'signing'
 }
 
 android {
@@ -8,7 +10,6 @@ android {
     compileSdk 35
 
     defaultConfig {
-//        applicationId "com.bpointer.roundedcornerlayout"
         minSdk 26
         targetSdk 35
 
@@ -18,25 +19,87 @@ android {
 
     buildTypes {
         release {
-//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = '11'
     }
 }
 
 dependencies {
-
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                // For Android libraries, use 'components.release' as a component only if available.
+                // Usually 'components.release' is not available, so you should create an AAR publication:
+                from components.release  // This usually works if 'android.library' plugin is applied
+
+                groupId = 'com.github.vaibhav-joshi-bpointer'
+                artifactId = 'roundedcornerlayout'
+                version = '1.0.0'
+
+                pom {
+                    name.set('RoundedCornerLayout')
+                    description.set('A custom layout with rounded corners.')
+                    url.set('https://github.com/vaibhav-joshi-bpointer/roundedviews')
+
+                    licenses {
+                        license {
+                            name.set('The Apache License, Version 2.0')
+                            url.set('http://www.apache.org/licenses/LICENSE-2.0.txt')
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id.set('Vaibhav-Joshi-Bpointer')
+                            name.set('Vaibhav-Joshi-Bpointer')
+                            email.set('vaibhav_joshi@bpointer.in')
+                        }
+                    }
+
+                    scm {
+                        connection.set('scm:git:github.com/vaibhav-joshi-bpointer/roundedviews.git')
+                        developerConnection.set('scm:git:ssh://github.com/vaibhav-joshi-bpointer/roundedviews.git')
+                        url.set('https://github.com/vaibhav-joshi-bpointer/roundedviews')
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = project.findProperty("ossrhUsername") ?: ""
+                    password = project.findProperty("ossrhPassword") ?: ""
+                }
+            }
+        }
+    }
+
+    signing {
+        useInMemoryPgpKeys(
+                project.findProperty("signing.key") ?: "",
+                project.findProperty("signing.password") ?: ""
+        )
+        sign publishing.publications.mavenJava
+    }
 }
